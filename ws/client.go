@@ -1,7 +1,6 @@
 package ws
 
 import (
-	"ele-dex/user"
 	"log"
 	"net/http"
 
@@ -11,7 +10,7 @@ import (
 type Client struct {
 	hub  *Hub
 	conn *websocket.Conn
-	user *user.User
+	user *User
 }
 
 func NewClient(hub *Hub, w http.ResponseWriter, r *http.Request) {
@@ -23,7 +22,7 @@ func NewClient(hub *Hub, w http.ResponseWriter, r *http.Request) {
 	client := &Client{
 		hub:  hub,
 		conn: conn,
-		user: user.NewUser(),
+		user: NewUser(),
 	}
 	client.Run()
 }
