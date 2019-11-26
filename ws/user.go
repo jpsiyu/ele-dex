@@ -1,6 +1,10 @@
 package ws
 
-import "log"
+import (
+	"ele-dex/orderbook"
+	"encoding/json"
+	"log"
+)
 
 type User struct {
 	client *Client
@@ -11,8 +15,9 @@ func (u *User) SetClient(client *Client) {
 }
 
 func (u *User) Register() {
-	log.Println("user register")
-	u.client.Send([]byte("Hello client!"))
+	book := orderbook.TestBook()
+	bytes, _ := json.Marshal(book)
+	u.client.Send(bytes)
 }
 
 func (u *User) Unregister() {
