@@ -20,7 +20,7 @@ func (c *Client) Send(msg []byte) {
 	c.conn.WriteMessage(websocket.TextMessage, msg)
 }
 
-func (c *Client) Serve() {
+func (c *Client) serve() {
 	for {
 		mt, message, err := c.conn.ReadMessage()
 		if err != nil {
@@ -49,5 +49,5 @@ func ServeWS(hub *Hub, w http.ResponseWriter, r *http.Request) {
 	}
 
 	hub.register <- client
-	client.Serve()
+	client.serve()
 }
