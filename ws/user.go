@@ -1,7 +1,7 @@
 package ws
 
 import (
-	"ele-dex/orderbook"
+	"ele-dex/book"
 	"encoding/json"
 	"log"
 )
@@ -15,7 +15,7 @@ func (u *User) SetClient(client *Client) {
 }
 
 func (u *User) Register() {
-	book := orderbook.TestBook()
+	book := book.TestBook()
 	bytes, _ := json.Marshal(book)
 	u.client.Send(bytes)
 }
