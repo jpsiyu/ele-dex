@@ -33,7 +33,7 @@ func main() {
 	r.HandleFunc("/greet", api.Greet)
 	r.HandleFunc("/echo", ws.Echo)
 	r.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
-		ws.ServeWS(hub, w, r)
+		ws.NewClient(hub, w, r)
 	})
 
 	// cross domain

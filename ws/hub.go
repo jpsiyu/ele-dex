@@ -33,3 +33,9 @@ func (h *Hub) Run() {
 		}
 	}
 }
+
+func (h *Hub) Broadcast(msg []byte) {
+	for client := range h.clients {
+		client.Send(msg)
+	}
+}
