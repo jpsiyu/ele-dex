@@ -2,6 +2,7 @@ package main
 
 import (
 	"ele-dex/api"
+	"ele-dex/ws"
 	"fmt"
 	"log"
 	"net/http"
@@ -27,6 +28,7 @@ func main() {
 	r.Use(LogUri)
 
 	r.HandleFunc("/greet", api.Greet)
+	r.HandleFunc("/echo", ws.Echo)
 
 	// cross domain
 	optionHeaders := handlers.AllowedHeaders([]string{"X-Requested-With", "Authorization", "Content-Type"})
