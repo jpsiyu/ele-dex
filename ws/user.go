@@ -3,14 +3,16 @@ package ws
 import "log"
 
 type User struct {
+	client *Client
 }
 
-func NewUser() *User {
-	return &User{}
+func (u *User) SetClient(client *Client) {
+	u.client = client
 }
 
 func (u *User) Register() {
 	log.Println("user register")
+	u.client.Send([]byte("Hello client!"))
 }
 
 func (u *User) Unregister() {

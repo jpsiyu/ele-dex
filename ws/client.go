@@ -19,21 +19,24 @@ func NewClient(hub *Hub, w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		return
 	}
+	user := &User{}
 	client := &Client{
 		hub:  hub,
 		conn: conn,
-		user: NewUser(),
 	}
-	client.Run()
+	client.user = user
+	client.user.SetClient(client)
+
+	client.Register()
 }
 
-func (c *Client) Run() {
+func (c *Client) Register() {
 	c.hub.register <- c
 	c.user.Register()
 	c.serve()
 }
 
-func (c *Client) Close() {
+func (c *Client) Unregister() {
 	c.user.Unregister()
 	c.conn.Close()
 }
