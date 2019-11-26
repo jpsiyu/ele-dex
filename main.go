@@ -24,11 +24,17 @@ func main() {
 	// log setting
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
+	hub := ws.NewHub()
+	go hub.Run()
+
 	r := mux.NewRouter()
 	r.Use(LogUri)
 
 	r.HandleFunc("/greet", api.Greet)
 	r.HandleFunc("/echo", ws.Echo)
+	r.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
+		ws.ServeWS(hub, w, r)
+	})
 
 	// cross domain
 	optionHeaders := handlers.AllowedHeaders([]string{"X-Requested-With", "Authorization", "Content-Type"})
